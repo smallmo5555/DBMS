@@ -1,10 +1,11 @@
 import { Router } from 'express';
-import {getAllData, getDataById, addData} from '../database.js'
+import {getAllData, getDataById, addData,NewRows} from '../database.js'
 let router = Router()
 
 router.get('/', async (req, res) => {
     res.json( await getAllData() )
 })
+
 
 router.get('/:id', async (req, res) => {
     res.json( await getDataById(req.params.id) )
@@ -18,9 +19,3 @@ router.post('/', async (req, res) => {
         let result = await addData(req.body);
         if(result.affectedRows)
             res.json(req.body);
-        else
-            res.status(500).json({"error": "unknown database error"})
-    }
-})
-
-export default router;
